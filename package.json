@@ -1,0 +1,28 @@
+{
+  "name": "team-profile-generator-hw-10",
+  "version": "1.0.0",
+  "description": "## Purpose:",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib",
+    "test": "tests"
+  },
+  "dependencies": {
+    "inquirer": "^7.3.3",
+    "jest": "^26.6.3"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "jest --coverage"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/natcarvajal/Team-Profile-Generator-HW-10.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/natcarvajal/Team-Profile-Generator-HW-10/issues"
+  },
+  "homepage": "https://github.com/natcarvajal/Team-Profile-Generator-HW-10#readme"
+}

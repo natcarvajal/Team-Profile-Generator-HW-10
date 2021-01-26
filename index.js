@@ -22,6 +22,7 @@ const Engineer = require("./lib/Engineer");
 const Manager = require("./lib/Manager");
 const Intern = require("./lib/Intern");
 const out_file = require("./constants").OUTFILE;
+const { report } = require("process");
 
 const team = () => {
   inquirer
@@ -32,13 +33,11 @@ const team = () => {
         name: "name",
         message: "Please enter team member's name",
       },
-
       {
         type: "input",
         name: "id",
         message: "Please enter team member's id number",
       },
-
       {
         type: "input",
         name: "email",
@@ -51,6 +50,12 @@ const team = () => {
         choices: ["Manager", "Engineer", "Intern"],
       },
       {
+        type: "input",
+        name: "school",
+        message: "What school is this person from?",
+        when: (answers) => answers.role === "Intern",
+      },
+      {
         type: "confirm",
         name: "addMember",
         message: "Would you like to add another team member?",
@@ -58,6 +63,26 @@ const team = () => {
       },
     ])
     .then((response) => {
+      let emps = [];
+      if (response.role == "Engineer") {
+        emps.push(
+          new Engineer(response.name, response.id, response.email, "Engineer")
+        );
+      } else if (response.role == "Manager") {
+        emps.push(
+          new Manager(response.name, response.id, response.email, response.role)
+        );
+      } else {
+        emps.push(
+          new Intern(
+            respons.name,
+            response.id,
+            response.email,
+            "Intern",
+            response.school
+          )
+        );
+      }
       let outFile = generateFile(response);
       fs.writeFile(out_file, outFile, (err) => {
         if (err) throw err;
@@ -93,18 +118,14 @@ function generateFile(response) {
         </div>
             <div class="card" style="width: 18rem;">
                 <div class="card-header">${response.role}
-                <br>${response.name}
                 </div>
+                <div class="card-header">${response.name}
                 <ul class="list-group list-group-flush">
                 <li class="list-group-item">ID: ${response.id}</li>
                 <a href="mailto:${response.email}" class="list-group-item">Email: ${response.email} </a>
                 <li class="list-group-item">Vestibulum at eros</li>
                 </ul>
-            </div>
-      
-      
-      
-      
+            </div> 
       <script
         src="https://kit.fontawesome.com/7c715641eb.js"
         crossorigin="anonymous"
@@ -127,7 +148,6 @@ function generateFile(response) {
       <script src="index.js"></script>
     </body>
   </html>
-
 `;
 }
 team();
