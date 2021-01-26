@@ -36,7 +36,7 @@ const team = () => {
       {
         type: "input",
         name: "id",
-        message: "Please enter team member's id",
+        message: "Please enter team member's id number",
       },
 
       {
@@ -49,6 +49,12 @@ const team = () => {
         name: "role",
         message: "Please enter team member's role",
         choices: ["Manager", "Engineer", "Intern"],
+      },
+      {
+        type: "confirm",
+        name: "addMember",
+        message: "Would you like to add another team member?",
+        default: true,
       },
     ])
     .then((response) => {
@@ -80,23 +86,29 @@ function generateFile(response) {
     </head>
   
     <body>
-      <nav class="navbar navbar-light bg-light">
-        <span class="navbar-brand mb-0 h1">Team</span>
-      </nav>
-      <br>
-      <div class="card" style="width: 18rem;">
-        <div class="card-header">${response.name}
-        <br>${response.role}
+        <div class="jumbotron jumbotron-fluid">
+            <div class="container">
+                <h1 class="display-4 text-center">Team</h1>
+            </div>
         </div>
-        <ul class="list-group list-group-flush">
-         <li class="list-group-item">ID: ${response.id}</li>
-         <a href="mailto:${response.email}" class="list-group-item">Email: ${response.email} </a>
-         <li class="list-group-item">Vestibulum at eros</li>
-        </ul>
-      </div>
-
-     
-  
+            <div class="card" style="width: 18rem;">
+                <div class="card-header">${response.role}
+                <br>${response.name}
+                </div>
+                <ul class="list-group list-group-flush">
+                <li class="list-group-item">ID: ${response.id}</li>
+                <a href="mailto:${response.email}" class="list-group-item">Email: ${response.email} </a>
+                <li class="list-group-item">Vestibulum at eros</li>
+                </ul>
+            </div>
+      
+      
+      
+      
+      <script
+        src="https://kit.fontawesome.com/7c715641eb.js"
+        crossorigin="anonymous"
+      ></script>
       <script
         src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
         integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
@@ -119,3 +131,6 @@ function generateFile(response) {
 `;
 }
 team();
+// <i class="fas fa-mug-hot"></i>
+// <i class="fas fa-desktop"></i>
+// <i class="fas fa-graduation-cap"></i>
