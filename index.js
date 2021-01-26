@@ -41,7 +41,7 @@ const team = () => {
 
       {
         type: "input",
-        name: "id",
+        name: "email",
         message: "Please enter team member's email address",
       },
       {
@@ -64,6 +64,58 @@ const team = () => {
 };
 function generateFile(response) {
   console.log(response);
-  return `<h1>${response.name}</h1>`;
+  return `<!DOCTYPE html>
+  <html lang="en">
+    <head>
+      <meta charset="UTF-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link
+        rel="stylesheet"
+        href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+        crossorigin="anonymous"
+      />
+      <link rel="stylesheet" href="style.css" />
+      <title>My Team</title>
+    </head>
+  
+    <body>
+      <nav class="navbar navbar-light bg-light">
+        <span class="navbar-brand mb-0 h1">Team</span>
+      </nav>
+      <br>
+      <div class="card" style="width: 18rem;">
+        <div class="card-header">${response.name}
+        <br>${response.role}
+        </div>
+        <ul class="list-group list-group-flush">
+         <li class="list-group-item">ID: ${response.id}</li>
+         <a href="mailto:${response.email}" class="list-group-item">Email: ${response.email} </a>
+         <li class="list-group-item">Vestibulum at eros</li>
+        </ul>
+      </div>
+
+     
+  
+      <script
+        src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"
+      ></script>
+      <script
+        src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"
+      ></script>
+      <script
+        src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"
+      ></script>
+      <script src="index.js"></script>
+    </body>
+  </html>
+
+`;
 }
 team();
