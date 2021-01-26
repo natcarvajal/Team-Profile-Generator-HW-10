@@ -51,6 +51,18 @@ const team = () => {
       },
       {
         type: "input",
+        name: "officeNumber",
+        message: "Please enter team member's office number?",
+        when: (answers) => answers.role === "Manager",
+      },
+      {
+        type: "input",
+        name: "github",
+        message: "Please enter team member's github?",
+        when: (answers) => answers.role === "Engineer",
+      },
+      {
+        type: "input",
         name: "school",
         message: "What school is this person from?",
         when: (answers) => answers.role === "Intern",
