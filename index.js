@@ -15,3 +15,23 @@
 // THEN I am prompted to enter the intern’s name, ID, email, and school, and I am taken back to the menu
 // WHEN I decide to finish building my team
 // THEN I exit the application, and the HTML is generated
+var inquirer = require('inquirer');
+const { type } = require('os');
+inquirer
+  .prompt([
+    /* Pass your questions in here */
+    {type: "input",
+    name: "name",
+    message 
+    }
+  ])
+  .then(answers => {
+    // Use user feedback for... whatever!!
+  })
+  .catch(error => {
+    if(error.isTtyError) {
+      // Prompt couldn't be rendered in the current environment
+    } else {
+      // Something else when wrong
+    }
+  });
