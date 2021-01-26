@@ -21,18 +21,49 @@ const Employee = require("./lib/Employee");
 const Engineer = require("./lib/Engineer");
 const Manager = require("./lib/Manager");
 const Intern = require("./lib/Intern");
-inquirer
-  .prompt([
-    /* Pass your questions in here */
-    { type: "input", name: "name", message },
-  ])
-  .then((answers) => {
-    // Use user feedback for... whatever!!
-  })
-  .catch((error) => {
-    if (error.isTtyError) {
-      // Prompt couldn't be rendered in the current environment
-    } else {
-      // Something else when wrong
-    }
-  });
+const out_file = require("./constants").OUTFILE;
+
+const team = () => {
+  inquirer
+    .prompt([
+      /* Pass your questions in here */
+      {
+        type: "input",
+        name: "name",
+        message: "Please enter team member's name",
+      },
+
+      {
+        type: "input",
+        name: "id",
+        message: "Please enter team member's id",
+      },
+
+      {
+        type: "input",
+        name: "id",
+        message: "Please enter team member's email address",
+      },
+      {
+        type: "list",
+        name: "role",
+        message: "Please enter team member's role",
+        choices: ["Manager", "Engineer", "Intern"],
+      },
+    ])
+    .then((response) => {
+      let outFile = generateFile(response);
+      fs.writeFile(out_file, outFile, (err) => {
+        if (err) throw err;
+        console.log("Success!");
+      });
+    })
+    .catch((error) => {
+      error ? console.error(error) : console.log("Success!");
+    });
+};
+function generateFile(response) {
+  console.log(response);
+  return `<h1>${response.name}</h1>`;
+}
+team();
