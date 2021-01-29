@@ -32,10 +32,10 @@ GIVEN a command-line application that accepts user input
 * THEN I exit the application, and the HTML is generated
 
 ## Screenshot:
-  ![team-profile-generator-snippet]()
+  ![team-generator-main-page]()
 
 ## Demo:
-* [Demo-Link]()
+* [Demo-Link](https://drive.google.com/file/d/19d_LXnL4x89F14yeAvbreWHMRtZjmWmc/view)
  
  ## Links:
-* [Github Repo]()
+* [Github Repo](https://github.com/natcarvajal/Team-Profile-Generator-HW-10)
