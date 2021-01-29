@@ -32,7 +32,7 @@ GIVEN a command-line application that accepts user input
 * THEN I exit the application, and the HTML is generated
 
 ## Screenshot:
-  ![team-generator-main-page]()
+  ![team-generator-main-page](image/team-gen.png)
 
 ## Demo:
 * [Demo-Link](https://drive.google.com/file/d/19d_LXnL4x89F14yeAvbreWHMRtZjmWmc/view)
