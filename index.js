@@ -78,16 +78,28 @@ const team = () => {
       let emps = [];
       if (response.role == "Engineer") {
         emps.push(
-          new Engineer(response.name, response.id, response.email, "Engineer")
+          new Engineer(
+            response.name,
+            response.id,
+            response.email,
+            "Engineer",
+            response.github
+          )
         );
       } else if (response.role == "Manager") {
         emps.push(
-          new Manager(response.name, response.id, response.email, response.role)
+          new Manager(
+            response.name,
+            response.id,
+            response.email,
+            response.role,
+            response.officeNumber
+          )
         );
       } else {
         emps.push(
           new Intern(
-            respons.name,
+            response.name,
             response.id,
             response.email,
             "Intern",
@@ -95,74 +107,157 @@ const team = () => {
           )
         );
       }
-      let outFile = generateFile(response);
-      fs.writeFile(out_file, outFile, (err) => {
-        if (err) throw err;
-        console.log("Success!");
-      });
+      if (response.addMember) {
+        team();
+      } else {
+        let outFile = generateFile(emps);
+        fs.writeFile(out_file, outFile, (err) => {
+          if (err) throw err;
+          console.log("Success!");
+        });
+      }
     })
     .catch((error) => {
       error ? console.error(error) : console.log("Success!");
     });
 };
-function generateFile(response) {
-  console.log(response);
-  return `<!DOCTYPE html>
-  <html lang="en">
-    <head>
-      <meta charset="UTF-8" />
-      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-      <link
-        rel="stylesheet"
-        href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
-        crossorigin="anonymous"
-      />
-      <link rel="stylesheet" href="style.css" />
-      <title>My Team</title>
-    </head>
-  
-    <body>
-        <div class="jumbotron jumbotron-fluid">
-            <div class="container">
-                <h1 class="display-4 text-center">Team</h1>
-            </div>
+function generateFile(emps) {
+  let man = "";
+  emps.forEach((emp) => {
+    if (emp.role == "Manager") {
+      man += `<!DOCTYPE html>
+      <html lang="en">
+      ​
+      <head>
+          <meta charset="UTF-8" />
+          <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+          <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+          <title>My Team</title>
+          <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+              integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+          <link rel="stylesheet" href="style.css">
+          <script src="https://kit.fontawesome.com/c502137733.js"></script>
+      </head>
+      ​
+      <body>
+          <div class="container-fluid">
+              <div class="row">
+                  <div class="col-12 jumbotron mb-3 team-heading">
+                      <h1 class="text-center">My Team</h1>
+                  </div>
+              </div>
+          </div>
+          <div class="container">
+              <div class="row">
+                  <div class="team-area col-12 d-flex justify-content-center">
+      <div class="card employee-card">
+      <div class="card-header">
+          <h2 class="card-title">${emp.name}</h2>
+          <h3 class="card-title"><i class="fas fa-mug-hot mr-2"></i>${emp.role}</h3>
+      </div>
+      <div class="card-body">
+          <ul class="list-group">
+              <li class="list-group-item">ID: ${emp.id}</li>
+              <li class="list-group-item">Email: <a href="mailto:${emp.email}">${emp.email}</a></li>
+              <li class="list-group-item">Office number: ${emp.officeNumber}</li>
+          </ul>
+      </div>
+  </div>
+  </div>
+  </div>
+</div>
+</body>
+</html>`;
+    } else if (emp.role == "Engineer") {
+      man += `<!DOCTYPE html>
+      <html lang="en">
+      ​
+      <head>
+          <meta charset="UTF-8" />
+          <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+          <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+          <title>My Team</title>
+          <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+              integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+          <link rel="stylesheet" href="style.css">
+          <script src="https://kit.fontawesome.com/c502137733.js"></script>
+      </head>
+      ​
+      <body>
+          <div class="container-fluid">
+              <div class="row">
+                  <div class="col-12 jumbotron mb-3 team-heading">
+                      <h1 class="text-center">My Team</h1>
+                  </div>
+              </div>
+          </div>
+          <div class="container">
+              <div class="row">
+                  <div class="team-area col-12 d-flex justify-content-center">
+            <div class="card employee-card">
+        <div class="card-header">
+            <h2 class="card-title">${emp.name}</h2>
+            <h3 class="card-title"><i class="fas fa-glasses mr-2"></i>${emp.role}</h3>
         </div>
-            <div class="card" style="width: 18rem;">
-                <div class="card-header">${response.role}
-                </div>
-                <div class="card-header">${response.name}
-                <ul class="list-group list-group-flush">
-                <li class="list-group-item">ID: ${response.id}</li>
-                <a href="mailto:${response.email}" class="list-group-item">Email: ${response.email} </a>
-                <li class="list-group-item">Vestibulum at eros</li>
-                </ul>
-            </div> 
-      <script
-        src="https://kit.fontawesome.com/7c715641eb.js"
-        crossorigin="anonymous"
-      ></script>
-      <script
-        src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-        crossorigin="anonymous"
-      ></script>
-      <script
-        src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
-        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-        crossorigin="anonymous"
-      ></script>
-      <script
-        src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
-        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-        crossorigin="anonymous"
-      ></script>
-      <script src="index.js"></script>
-    </body>
-  </html>
-`;
+        <div class="card-body">
+            <ul class="list-group">
+                <li class="list-group-item">ID: ${emp.id}</li>
+                <li class="list-group-item">Email: <a href="mailto:${emp.email}">${emp.email}</a></li>
+                <li class="list-group-item">GitHub: <a href="https://github.com/${emp.github}" target="_blank" rel="noopener noreferrer">${emp.github}</a></li>
+            </ul>
+        </div>
+    </div>
+    </div>
+    </div>
+</div>
+</body>
+</html>`;
+    } else {
+      man += `<!DOCTYPE html>
+      <html lang="en">
+      ​
+      <head>
+          <meta charset="UTF-8" />
+          <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+          <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+          <title>My Team</title>
+          <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+              integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+          <link rel="stylesheet" href="style.css">
+          <script src="https://kit.fontawesome.com/c502137733.js"></script>
+      </head>
+      ​
+      <body>
+          <div class="container-fluid">
+              <div class="row">
+                  <div class="col-12 jumbotron mb-3 team-heading">
+                      <h1 class="text-center">My Team</h1>
+                  </div>
+              </div>
+          </div>
+          <div class="container">
+              <div class="row">
+                  <div class="team-area col-12 d-flex justify-content-center">
+                  <div class="card employee-card">
+      <div class="card-header">
+          <h2 class="card-title">${emp.name}</h2>
+          <h3 class="card-title"><i class="fas fa-user-graduate mr-2"></i>${emp.role}</h3>
+      </div>
+      <div class="card-body">
+          <ul class="list-group">
+              <li class="list-group-item">ID:${emp.id}</li>
+              <li class="list-group-item">Email: <a href="mailto:${emp.email}">${emp.email}</a></li>
+              <li class="list-group-item">School: ${emp.school}</li>
+          </ul>
+      </div>
+  </div>
+  </div>
+  </div>
+</div>
+</body>
+</html>`;
+    }
+  });
+  return man;
 }
 team();
-// <i class="fas fa-mug-hot"></i>
-// <i class="fas fa-desktop"></i>
-// <i class="fas fa-graduation-cap"></i>
